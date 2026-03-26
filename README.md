@@ -103,6 +103,10 @@ php artisan serve
 | Password   | `password`           |
 | Permission | `create player note` |
 
+### Default Test User without permissions / Usuario de prueba sin permisos
+
+| Field      | Value                |
+| ---------- | -------------------- |
 | Email | `nopermission@example.com` |
 | Password | `password` |
 
