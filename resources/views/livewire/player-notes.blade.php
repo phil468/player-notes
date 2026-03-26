@@ -5,7 +5,7 @@
         <form wire:submit="save" class="mb-6">
             <div class="mb-2">
                 <textarea
-                    wire:model.live="note"
+                    wire:model="note"
                     rows="3"
                     maxlength="500"
                     placeholder="Write a note..."

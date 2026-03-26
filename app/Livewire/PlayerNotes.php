@@ -34,7 +34,7 @@ class PlayerNotes extends Component
             'note' => $this->note,
         ]);
 
-        $this->reset('note');
+        $this->reset(['note']);
         $this->resetValidation();
     }
 
