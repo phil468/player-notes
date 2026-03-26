@@ -20,7 +20,7 @@
 
         @livewireStyles
     </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] min-h-screen">
+    <body class="bg-[#FDFDFC] text-[#1b1b18] min-h-screen">
         <div class="max-w-4xl mx-auto py-8 px-4">
             {{ $slot }}
         </div>
