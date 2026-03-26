@@ -26,6 +26,12 @@ class DatabaseSeeder extends Seeder
 
         $user->givePermissionTo('create player note');
 
+        //usuario sin permisos
+        User::factory()->create([
+            'name' => 'No Permission User',
+            'email' => 'nopermission@example.com',
+        ]);
+
         Player::factory()->count(3)->create();
     }
 }

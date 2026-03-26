@@ -1,58 +1,231 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Player Notes
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Module for managing notes associated with players. Built with Laravel 13, Livewire 4, and Spatie Permissions.
 
-## About Laravel
+Módulo para gestionar notas asociadas a jugadores. Construido con Laravel 13, Livewire 4 y Spatie Permissions.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Table of Contents / Índice
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- [Tech Stack](#tech-stack)
+- [Architecture / Arquitectura](#architecture--arquitectura)
+- [Installation / Instalación](#installation--instalación)
+- [Running Tests / Ejecutar Tests](#running-tests--ejecutar-tests)
+- [Usage / Uso](#usage--uso)
+- [Project Structure / Estructura del Proyecto](#project-structure--estructura-del-proyecto)
+- [Commit History / Historial de Commits](#commit-history--historial-de-commits)
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Tech Stack
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| Technology | Version |
+|---|---|
+| PHP | 8.3+ |
+| Laravel | 13.x |
+| Livewire | 4.x |
+| Spatie Permissions | 7.x |
+| Laravel Breeze | 2.x |
+| Tailwind CSS | 4.x |
+| PHPUnit | 12.x |
+| SQLite | (testing) |
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+---
 
-## Agentic Development
+## Architecture / Arquitectura
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```
+app/
+├── Livewire/
+│   └── PlayerNotes.php              # Livewire component (list + create notes)
+├── Models/
+│   ├── Player.php                   # Player model
+│   ├── PlayerNote.php               # PlayerNote model (belongsTo Player, User)
+│   └── User.php                     # User model (HasRoles trait)
+├── Repositories/
+│   ├── Contracts/
+│   │   └── PlayerNoteRepositoryInterface.php   # Repository contract
+│   └── PlayerNoteRepository.php     # Eloquent implementation
+└── Providers/
+    └── AppServiceProvider.php       # Interface → Implementation binding
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+**Design Patterns / Patrones de Diseño:**
+- **Repository Pattern**: Decouples data access from business logic / Desacopla el acceso a datos de la lógica de negocio
+- **Dependency Injection**: Repository injected via Livewire method injection / Repositorio inyectado por method injection de Livewire
+- **SOLID Principles**: Single Responsibility, Dependency Inversion / Principios de Responsabilidad Única e Inversión de Dependencias
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Installation / Instalación
 
-## Code of Conduct
+### Prerequisites / Requisitos previos
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- PHP >= 8.3
+- Composer
+- Node.js >= 18
+- SQLite (included by default / incluido por defecto)
 
-## Security Vulnerabilities
+### Steps / Pasos
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+# 1. Clone the repository / Clonar el repositorio
+git clone <repository-url>
+cd player-notes
+
+# 2. Install PHP dependencies / Instalar dependencias PHP
+composer install
+
+# 3. Install Node dependencies / Instalar dependencias Node
+npm install
+
+# 4. Environment setup / Configurar entorno
+cp .env.example .env
+php artisan key:generate
+
+# 5. Run migrations and seed / Ejecutar migraciones y seeders
+php artisan migrate:fresh --seed
+
+# 6. Build frontend assets / Compilar assets del frontend
+npm run build
+
+# 7. Start the server / Iniciar el servidor
+php artisan serve
+```
+
+### Default Test User / Usuario de prueba
+
+| Field | Value |
+|---|---|
+| Email | `test@example.com` |
+| Password | `password` |
+| Permission | `create player note` |
+
+---
+
+## Running Tests / Ejecutar Tests
+
+### Run all tests / Ejecutar todos los tests
+
+```bash
+php artisan test
+```
+
+### Run only PlayerNote tests / Ejecutar solo los tests de PlayerNote
+
+```bash
+php artisan test --filter=PlayerNoteTest
+```
+
+### Test coverage / Cobertura de tests
+
+The `PlayerNoteTest` suite includes 7 tests covering:
+
+La suite `PlayerNoteTest` incluye 7 tests que cubren:
+
+| Test | Description / Descripción |
+|---|---|
+| `test_authorized_user_can_create_a_note` | Verifies a note is saved in the DB / Verifica que una nota se guarda en la BD |
+| `test_note_field_is_required` | Validation: field cannot be empty / Validación: campo no puede estar vacío |
+| `test_note_cannot_exceed_500_characters` | Validation: max 500 chars / Validación: máximo 500 caracteres |
+| `test_notes_are_listed_for_a_player` | Notes are retrieved for a player / Las notas se listan para un jugador |
+| `test_unauthorized_user_cannot_create_a_note` | Users without permission get 403 / Usuarios sin permiso reciben 403 |
+| `test_form_is_hidden_for_users_without_permission` | Form hidden if no permission / Formulario oculto si no tiene permiso |
+| `test_note_field_resets_after_saving` | Input clears after save / El campo se limpia después de guardar |
+
+### Expected output / Salida esperada
+
+```
+PASS  Tests\Feature\PlayerNoteTest
+  ✓ authorized user can create a note
+  ✓ note field is required
+  ✓ note cannot exceed 500 characters
+  ✓ notes are listed for a player
+  ✓ unauthorized user cannot create a note
+  ✓ form is hidden for users without permission
+  ✓ note field resets after saving
+
+Tests:    7 passed (13 assertions)
+```
+
+---
+
+## Usage / Uso
+
+### Access the application / Acceder a la aplicación
+
+1. Start the server: `php artisan serve`
+2. Login at `/login` with the test credentials above
+3. Navigate to `/players/{id}/notes` (e.g., `/players/1/notes`)
+
+### Player Notes component / Componente Player Notes
+
+- **Authorized users** see a form to add notes + the notes list / **Usuarios autorizados** ven un formulario para agregar notas + la lista
+- **Unauthorized users** only see the notes list (no form) / **Usuarios no autorizados** solo ven la lista (sin formulario)
+- Notes refresh automatically after saving (no page reload) / Las notas se actualizan automáticamente al guardar (sin recargar página)
+
+### Blade usage / Uso en Blade
+
+```blade
+<livewire:player-notes :player-id="$player->id" />
+```
+
+---
+
+## Project Structure / Estructura del Proyecto
+
+```
+player-notes/
+├── app/
+│   ├── Livewire/PlayerNotes.php           # Livewire component
+│   ├── Models/
+│   │   ├── Player.php                     # Player model
+│   │   ├── PlayerNote.php                 # PlayerNote model
+│   │   └── User.php                       # User model (+ HasRoles)
+│   ├── Providers/AppServiceProvider.php   # Repository binding
+│   └── Repositories/
+│       ├── Contracts/
+│       │   └── PlayerNoteRepositoryInterface.php
+│       └── PlayerNoteRepository.php
+├── database/
+│   ├── factories/
+│   │   ├── PlayerFactory.php
+│   │   ├── PlayerNoteFactory.php
+│   │   └── UserFactory.php
+│   ├── migrations/
+│   │   ├── ...create_players_table.php
+│   │   └── ...create_player_notes_table.php
+│   └── seeders/DatabaseSeeder.php
+├── resources/views/
+│   ├── livewire/player-notes.blade.php    # Component view
+│   └── player-notes.blade.php            # Page view
+├── routes/web.php                         # Routes
+└── tests/Feature/PlayerNoteTest.php       # Feature tests
+```
+
+---
+
+## Commit History / Historial de Commits
+
+Each feature was developed and committed incrementally:
+
+Cada funcionalidad fue desarrollada y commiteada de forma incremental:
+
+| # | Commit | Description / Descripción |
+|---|--------|---------------------------|
+| 1 | `chore: install dependencies` | Livewire 4 + Spatie Permissions |
+| 2 | `feat: Player model` | Model, migration & factory / Modelo, migración y factory |
+| 3 | `feat: PlayerNote model` | Model with relationships, migration with FK & indexes / Modelo con relaciones, migración con FK e índices |
+| 4 | `feat: repository pattern` | Interface + implementation + ServiceProvider binding |
+| 5 | `feat: Livewire component` | PlayerNotes class + Blade view / Clase PlayerNotes + vista Blade |
+| 6 | `feat: feature tests` | 7 tests, 13 assertions |
+| 7 | `feat: route + layout` | Page view with Breeze layout integration |
+| 8 | `feat: seeder` | Test user with permission + sample players |
+| 9 | `feat: Breeze auth` | Authentication flow (login, register, etc.) |
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+[MIT](https://opensource.org/licenses/MIT)
