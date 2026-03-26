@@ -20,16 +20,16 @@ Módulo para gestionar notas asociadas a jugadores. Construido con Laravel 13, L
 
 ## Tech Stack
 
-| Technology | Version |
-|---|---|
-| PHP | 8.3+ |
-| Laravel | 13.x |
-| Livewire | 4.x |
-| Spatie Permissions | 7.x |
-| Laravel Breeze | 2.x |
-| Tailwind CSS | 4.x |
-| PHPUnit | 12.x |
-| SQLite | (testing) |
+| Technology         | Version   |
+| ------------------ | --------- |
+| PHP                | 8.3+      |
+| Laravel            | 13.x      |
+| Livewire           | 4.x       |
+| Spatie Permissions | 7.x       |
+| Laravel Breeze     | 2.x       |
+| Tailwind CSS       | 4.x       |
+| PHPUnit            | 12.x      |
+| SQLite             | (testing) |
 
 ---
 
@@ -52,6 +52,7 @@ app/
 ```
 
 **Design Patterns / Patrones de Diseño:**
+
 - **Repository Pattern**: Decouples data access from business logic / Desacopla el acceso a datos de la lógica de negocio
 - **Dependency Injection**: Repository injected via Livewire method injection / Repositorio inyectado por method injection de Livewire
 - **SOLID Principles**: Single Responsibility, Dependency Inversion / Principios de Responsabilidad Única e Inversión de Dependencias
@@ -96,11 +97,14 @@ php artisan serve
 
 ### Default Test User / Usuario de prueba
 
-| Field | Value |
-|---|---|
-| Email | `test@example.com` |
-| Password | `password` |
+| Field      | Value                |
+| ---------- | -------------------- |
+| Email      | `test@example.com`   |
+| Password   | `password`           |
 | Permission | `create player note` |
+
+| Email | `nopermission@example.com` |
+| Password | `password` |
 
 ---
 
@@ -124,15 +128,15 @@ The `PlayerNoteTest` suite includes 7 tests covering:
 
 La suite `PlayerNoteTest` incluye 7 tests que cubren:
 
-| Test | Description / Descripción |
-|---|---|
-| `test_authorized_user_can_create_a_note` | Verifies a note is saved in the DB / Verifica que una nota se guarda en la BD |
-| `test_note_field_is_required` | Validation: field cannot be empty / Validación: campo no puede estar vacío |
-| `test_note_cannot_exceed_500_characters` | Validation: max 500 chars / Validación: máximo 500 caracteres |
-| `test_notes_are_listed_for_a_player` | Notes are retrieved for a player / Las notas se listan para un jugador |
-| `test_unauthorized_user_cannot_create_a_note` | Users without permission get 403 / Usuarios sin permiso reciben 403 |
-| `test_form_is_hidden_for_users_without_permission` | Form hidden if no permission / Formulario oculto si no tiene permiso |
-| `test_note_field_resets_after_saving` | Input clears after save / El campo se limpia después de guardar |
+| Test                                               | Description / Descripción                                                     |
+| -------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `test_authorized_user_can_create_a_note`           | Verifies a note is saved in the DB / Verifica que una nota se guarda en la BD |
+| `test_note_field_is_required`                      | Validation: field cannot be empty / Validación: campo no puede estar vacío    |
+| `test_note_cannot_exceed_500_characters`           | Validation: max 500 chars / Validación: máximo 500 caracteres                 |
+| `test_notes_are_listed_for_a_player`               | Notes are retrieved for a player / Las notas se listan para un jugador        |
+| `test_unauthorized_user_cannot_create_a_note`      | Users without permission get 403 / Usuarios sin permiso reciben 403           |
+| `test_form_is_hidden_for_users_without_permission` | Form hidden if no permission / Formulario oculto si no tiene permiso          |
+| `test_note_field_resets_after_saving`              | Input clears after save / El campo se limpia después de guardar               |
 
 ### Expected output / Salida esperada
 
@@ -212,17 +216,17 @@ Each feature was developed and committed incrementally:
 
 Cada funcionalidad fue desarrollada y commiteada de forma incremental:
 
-| # | Commit | Description / Descripción |
-|---|--------|---------------------------|
-| 1 | `chore: install dependencies` | Livewire 4 + Spatie Permissions |
-| 2 | `feat: Player model` | Model, migration & factory / Modelo, migración y factory |
-| 3 | `feat: PlayerNote model` | Model with relationships, migration with FK & indexes / Modelo con relaciones, migración con FK e índices |
-| 4 | `feat: repository pattern` | Interface + implementation + ServiceProvider binding |
-| 5 | `feat: Livewire component` | PlayerNotes class + Blade view / Clase PlayerNotes + vista Blade |
-| 6 | `feat: feature tests` | 7 tests, 13 assertions |
-| 7 | `feat: route + layout` | Page view with Breeze layout integration |
-| 8 | `feat: seeder` | Test user with permission + sample players |
-| 9 | `feat: Breeze auth` | Authentication flow (login, register, etc.) |
+| #   | Commit                        | Description / Descripción                                                                                 |
+| --- | ----------------------------- | --------------------------------------------------------------------------------------------------------- |
+| 1   | `chore: install dependencies` | Livewire 4 + Spatie Permissions                                                                           |
+| 2   | `feat: Player model`          | Model, migration & factory / Modelo, migración y factory                                                  |
+| 3   | `feat: PlayerNote model`      | Model with relationships, migration with FK & indexes / Modelo con relaciones, migración con FK e índices |
+| 4   | `feat: repository pattern`    | Interface + implementation + ServiceProvider binding                                                      |
+| 5   | `feat: Livewire component`    | PlayerNotes class + Blade view / Clase PlayerNotes + vista Blade                                          |
+| 6   | `feat: feature tests`         | 7 tests, 13 assertions                                                                                    |
+| 7   | `feat: route + layout`        | Page view with Breeze layout integration                                                                  |
+| 8   | `feat: seeder`                | Test user with permission + sample players                                                                |
+| 9   | `feat: Breeze auth`           | Authentication flow (login, register, etc.)                                                               |
 
 ---
 

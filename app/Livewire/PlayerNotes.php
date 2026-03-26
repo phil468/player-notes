@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use App\Repositories\Contracts\PlayerNoteRepositoryInterface;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\Validate;

@@ -18,10 +18,8 @@ class PlayerNote extends Model
         'created_at' => 'datetime',
     ];
 
-    public static function boot(): void
+    protected static function booted(): void
     {
-        parent::boot();
-
         static::creating(function (PlayerNote $note): void {
             $note->created_at = $note->freshTimestamp();
         });

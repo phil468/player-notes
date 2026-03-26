@@ -17,8 +17,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->text('note');
             $table->timestamp('created_at')->nullable();
-
-            $table->index('player_id');
         });
     }
 
