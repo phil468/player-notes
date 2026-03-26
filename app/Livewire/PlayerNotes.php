@@ -35,6 +35,7 @@ class PlayerNotes extends Component
         ]);
 
         $this->reset('note');
+        $this->resetValidation();
     }
 
     public function render(PlayerNoteRepositoryInterface $repository): View
